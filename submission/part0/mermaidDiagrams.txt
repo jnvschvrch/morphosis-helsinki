@@ -1,0 +1,34 @@
+//MPA
+sequenceDiagram
+    Browser->>+Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/notes
+    Server->>+Browser: HTTP status code 302 (Server asks browser to do a new HTTP GET request to /notes)
+    Browser->>+Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+    Server->>+Browser: HTTP status code 200 OK (Sends HTML code)
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/main.css
+    Server->>+Browser: HTTP status code 200 OK (main.css)
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/main.js
+    Server->>+Browser: HTTP status code 200 OK (main.js)
+    note over Browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/data.json
+    Server->>+Browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    note over Browser: The browser executes the callback function that renders the notes
+
+
+//SPA
+sequenceDiagram
+    Browser->>+Server: HTTP POST https:https://studies.cs.helsinki.fi/exampleapp/spa
+    Server->>+Browser: HTTP status code 200 OK (HTML code)
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/main.css
+    Server->>+Browser: HTTP status code 200 OK (main.css)
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/spa.js
+    Server->>+Browser: HTTP status code 200 OK (spa.js)
+    note over Browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+    Browser->>+Server: HTTP GET https:https://studies.cs.helsinki.fi/exampleapp/data.json
+    Server->>+Browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    note over Browser: The browser executes the callback function that renders the notes
+    
+sequenceDiagram
+    Browser->>+Server: HTTP POST https:https://studies.cs.helsinki.fi/exampleapp/new note spa
+    Server->>+Browser: HTTP status code 201 created
+    note over Browser: With SPA, browser stays on the same page, and it sends no further HTTP requests
+
